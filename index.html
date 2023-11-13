@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./style/style.css" rel="stylesheet" type="text/css" />
+    <script src="https://kit.fontawesome.com/b29950c9e9.js" crossorigin="anonymous"></script>
+    <title>Les Petits Plats</title>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo-container">
+            <img src="./assets/icons/Logo.png" alt="logo" class="logo" />
+        </div>
+        <div class="title-search_bar">
+            <h1 class="title">cherchez parmi plus de 1500 recettes du quotidien, simples et délicieuses</h1>
+            <div class="search_bar-container">
+                <input type="search" placeholder="Rechercher une recette, un ingrédient..." class="search_bar">
+                <button type="submit" class="search_button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="29" viewBox="0 0 28 29" fill="none">
+                        <circle cx="10" cy="10.4219" r="9.5" stroke="white" />
+                        <line x1="18.3536" y1="19.0683" x2="27.3536" y2="28.0683" stroke="white" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="sort" class="dropdown_section">
+            <div class="dropdowns_container">
+                <div class="dropdown">
+                    <div class="dropdown_title">
+                        <p>Ingrédients</p>
+                        <div class="chevron">chevron</div>
+                    </div>
+                    <div class="dropdown_search">
+                        <input type="search">
+                        <div class="loop">loop</div>
+                    </div>
+                    <ul id="ingredients_dropdown" class="dropdown_list"></ul>
+                </div>
+                <div class="dropdown">
+                    <div class="dropdown_title">
+                        <p>Appareils</p>
+                        <div class="chevron">chevron</div>
+                    </div>
+                    <div class="dropdown_search">
+                        <input type="search">
+                        <div class="loop">loop</div>
+                    </div>
+                    <ul id="appliances_dropdown" class="dropdown_list"></ul>
+                </div>
+                <div class="dropdown">
+                    <div class="dropdown_title">
+                        <p>Ustensiles</p>
+                        <div class="chevron">chevron</div>
+                    </div>
+                    <div class="dropdown_search">
+                        <input type="search">
+                        <div class="loop">loop</div>
+                    </div>
+                    <ul id="ustensils_dropdown" class="dropdown_list"></ul>
+                </div>
+            </div>
+            <h3>1500 recettes</h3>
+        </section>
+        <section id="recipes" class="recipe_section">
+            <!--  <div class="recipe_card">
+                <div class="recipe_duration_container">
+                    <p class="recipe_duration">10min</p>
+                </div>
+                <img src="https://picsum.photos/200/300" alt="" class="recipe_photo">
+                <div class="recipe_description">
+                    <h3 class="recipe_title">Titre de la recette</h3>
+                    <div class="recipe_text_container">
+                        <p class="recipe_text_title title">RECETTE</p>
+                        <p class="recipe_text text">Mettre les glaçons à votre goût dans le blender, ajouter le lait, la
+                            crème de coco, le jus de 2 citrons et le sucre. Mixer jusqu'à avoir la consistence désirée.
+                        </p>
+                    </div>
+                    <div class="ingredients_container">
+                        <p class="ingredients_title title">Ingrédients</p>
+                        <ul class="ingredients_list">
+                            <li class="ingredients text">
+                                Lait de coco
+                                <span class="quantity">400ml</span>
+                            </li>
+                            <li class="ingredients text">
+                                Jus de citron
+                                <span class="quantity">2</span>
+                            </li>
+                            <li class="ingredients text">
+                                Crème de coco
+                                <span class="quantity">4 cuillères</span>
+                            </li>
+                            <li class="ingredients text">
+                                Sucre
+                                <span class="quantity">20g</span>
+                            </li>
+                            <li class="ingredients text">
+                                Glaçons
+                                <span class="quantity">2</span>
+                            </li>
+                            <li class="ingredients text">
+                                Glaçons
+                                <span class="quantity">2</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>-->
+
+        </section>
+    </main>
+
+    <script src="./scripts/pages/home.js" type="module"></script>
+</body>
+
+</html>

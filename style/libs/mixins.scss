@@ -1,0 +1,9 @@
+@mixin cross($height: 15px, $width: 15px, $bg-size: 15px, $margin: 50px) {
+    -webkit-appearance: none;
+    background: url(../assets/icons/svg/cross.svg) no-repeat;
+    height: $height;
+    width: $width;
+    background-size: $bg-size;
+    margin-right: $margin;
+    cursor: pointer;
+}

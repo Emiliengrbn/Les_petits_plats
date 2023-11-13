@@ -1,0 +1,309 @@
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=Manrope&display=swap");
+/*! minireset.css v0.0.6 | MIT License | github.com/jgthms/minireset.css */
+html, body, p, ol, ul, li, dl, dt, dd, blockquote, figure, fieldset, legend, textarea, pre, iframe, hr, h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: 100%;
+  font-weight: normal;
+}
+
+ul {
+  list-style: none;
+}
+
+button, input, select {
+  margin: 0;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+img, video {
+  height: auto;
+  max-width: 100%;
+}
+
+iframe {
+  border: 0;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+td, th {
+  padding: 0;
+}
+
+/* FONTS */
+/* COLORS */
+* {
+  font-family: "Manrope", sans-serif;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Anton", sans-serif;
+}
+
+main {
+  padding: 0 75px;
+  background: #EDEDED;
+}
+
+/* ----------------------- HEADER ----------------------- */
+header {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.3) 100%), url("../assets/icons/home_picture.png"), lightgray 50%;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.logo-container {
+  position: absolute;
+  top: 30px;
+  left: 50px;
+  width: 250px;
+}
+.logo-container .logo {
+  width: 100%;
+}
+
+.title-search_bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.title-search_bar .title {
+  width: 40%;
+  color: #FFD15B;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 50px;
+  font-weight: lighter;
+  font-size: 40px;
+}
+
+.search_bar-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 50px;
+}
+.search_bar-container .search_bar {
+  width: 40%;
+  border-radius: 5px;
+  padding-left: 10px;
+  font-size: 16px;
+  outline: none;
+  border: none;
+}
+.search_bar-container .search_button {
+  margin-left: -45px;
+  width: 40px;
+  height: 40px;
+  position: relative;
+  top: 5px;
+  background-color: #1B1B1B;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.5s;
+}
+.search_bar-container .search_button circle, .search_bar-container .search_button line {
+  transition: 0.5s;
+}
+.search_bar-container .search_button:hover {
+  background-color: #FFD15B;
+}
+.search_bar-container .search_button:hover circle, .search_bar-container .search_button:hover line {
+  stroke: #000;
+}
+.search_bar-container input[type=search i]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  background: url(../assets/icons/svg/cross.svg) no-repeat;
+  height: 15px;
+  width: 15px;
+  background-size: 15px;
+  margin-right: 50px;
+  cursor: pointer;
+}
+
+/* ----------------------- SORT SECTION -----------------------*/
+.dropdown_section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 50px;
+}
+
+.dropdowns_container {
+  display: flex;
+}
+
+.dropdown {
+  margin-right: 50px;
+  background-color: #FFF;
+  border-radius: 15px;
+}
+.dropdown .dropdown_list {
+  overflow: auto;
+  text-overflow: clip;
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  padding: 10px;
+  -webkit-box-orient: vertical;
+}
+.dropdown .dropdown_list li {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 5px 0;
+}
+
+.dropdown_title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+}
+.dropdown_title .chevron {
+  background: url(../assets/icons/svg/chevron.svg) no-repeat;
+  position: relative;
+  right: 0;
+  display: block;
+  text-indent: -9999px;
+  width: 15px;
+  height: 8px;
+}
+
+.dropdown_search {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.dropdown_search input {
+  border: 1px solid #7A7A7A;
+  padding: 5px;
+  outline: none;
+  position: relative;
+  font-size: 14px;
+}
+.dropdown_search button {
+  border: none;
+  background-color: transparent;
+  position: absolute;
+  position: absolute;
+  right: 0;
+  cursor: pointer;
+  padding: 0 5px 0 0;
+}
+.dropdown_search .loop {
+  display: block;
+  position: absolute;
+  right: 10px;
+  text-indent: -9999px;
+  width: 18px;
+  height: 18px;
+  background: url(../assets/icons/svg/loop.svg) no-repeat;
+  background-size: contain;
+  transition: 0.5s;
+}
+.dropdown_search input[type=search i]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  background: url(../assets/icons/svg/cross.svg) no-repeat;
+  height: 10px;
+  width: 10px;
+  background-size: contain;
+  margin-right: 30px;
+  cursor: pointer;
+}
+
+/* ----------------------- RECIPE SECTION ----------------------- */
+.recipe_section {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.recipe_card {
+  background-color: #FFF;
+  border-radius: 10px;
+  width: 70%;
+  margin: 50px;
+  position: relative;
+  transition-duration: 0.5s;
+  cursor: pointer;
+  box-shadow: 0px 4px 34px 30px rgba(0, 0, 0, 0.04);
+}
+.recipe_card:hover {
+  transform: scale(1.03);
+}
+.recipe_card .recipe_duration_container {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: #FFD15B;
+  border-radius: 15px;
+  padding: 5px 15px;
+}
+.recipe_card .recipe_photo {
+  width: 100%;
+  height: 200px;
+  border-radius: 10px 10px 0 0;
+  object-fit: cover;
+}
+
+.recipe_description {
+  margin: 20px 25px;
+}
+.recipe_description .recipe_title {
+  padding-bottom: 15px;
+  font-size: 18px;
+}
+.recipe_description .title {
+  color: #7A7A7A;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1.08px;
+  padding-bottom: 15px;
+  text-transform: uppercase;
+}
+.recipe_description .recipe_text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+}
+.recipe_description .text {
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+.recipe_description .ingredients_list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+.recipe_description .ingredients_list .ingredients {
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+}
+.recipe_description .ingredients_list .quantity {
+  color: #7A7A7A;
+  font-weight: lighter;
+}
+
+/*# sourceMappingURL=style.css.map */

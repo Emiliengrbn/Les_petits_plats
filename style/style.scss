@@ -1,0 +1,310 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Manrope&display=swap');
+@import "libs/reset.scss";
+@import "libs/mixins.scss";
+
+/* FONTS */
+
+$titleFont: 'Anton', sans-serif;
+$classicFont: 'Manrope', sans-serif;
+
+/* COLORS */
+
+$yellow: #FFD15B;
+$grey: #7A7A7A;
+$white: #FFF;
+$lightBlack: #1B1B1B;
+$black: #000;
+$backgroundColor: #EDEDED;
+
+* {
+    font-family: $classicFont;
+}
+
+h1,
+h2,
+h3 {
+    font-family: $titleFont;
+}
+
+main {
+    padding: 0 75px;
+    background: $backgroundColor;
+}
+
+/* ----------------------- HEADER ----------------------- */
+
+header {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.30) 0%, rgba(0, 0, 0, 0.30) 100%), url("../assets/icons/home_picture.png"), lightgray 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.logo-container {
+    position: absolute;
+    top: 30px;
+    left: 50px;
+    width: 250px;
+
+    .logo {
+        width: 100%;
+    }
+}
+
+.title-search_bar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+    .title {
+        width: 40%;
+        color: $yellow;
+        text-transform: uppercase;
+        text-align: center;
+        margin-bottom: 50px;
+        font-weight: lighter;
+        font-size: 40px;
+    }
+
+}
+
+.search_bar-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 50px;
+
+    .search_bar {
+        width: 40%;
+        border-radius: 5px;
+        padding-left: 10px;
+        font-size: 16px;
+        outline: none;
+        border: none;
+    }
+
+    .search_button {
+        margin-left: -45px;
+        width: 40px;
+        height: 40px;
+        position: relative;
+        top: 5px;
+        background-color: $lightBlack;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: .5s;
+
+        circle, line {
+            transition: 0.5s;
+        }
+
+        
+
+        &:hover {
+            background-color: $yellow;
+
+            circle, line {
+                stroke: $black;
+            }
+        }
+    }
+
+    input[type="search" i]::-webkit-search-cancel-button {
+        @include cross
+    }
+}
+
+
+/* ----------------------- SORT SECTION -----------------------*/
+
+.dropdown_section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+}
+
+.dropdowns_container {
+    display: flex;
+}
+
+.dropdown {
+    margin-right: 50px;
+    background-color: $white;
+    border-radius: 15px;
+
+    .dropdown_list {
+        overflow: auto;
+        text-overflow: clip;
+        display: -webkit-box;
+        -webkit-line-clamp: 6;
+        padding: 10px;
+        -webkit-box-orient: vertical;
+
+        li {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            // display: -webkit-box;
+            // -webkit-line-clamp: 6;
+            padding: 5px 0;
+            // -webkit-box-orient: vertical;
+        }
+    }
+}
+
+.dropdown_title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+
+    .chevron {
+        background: url(../assets/icons/svg/chevron.svg) no-repeat;
+        position: relative;
+        right: 0;
+        display: block;
+        text-indent: -9999px;
+        width: 15px;
+        height: 8px;
+    }
+}
+
+.dropdown_search {
+        position: relative;
+        display: flex;
+        align-items: center;
+
+        input {
+            border: 1px solid $grey;
+            padding: 5px;
+            outline: none;
+            position: relative;
+            font-size: 14px;
+        }
+    
+        button {
+            border: none;
+            background-color: transparent;
+            position: absolute;
+            position: absolute;
+            right: 0;
+            cursor: pointer;
+            padding: 0 5px 0 0;
+        }
+        
+        .loop {
+            display: block;
+            position: absolute;
+            right: 10px;
+            text-indent: -9999px;
+            width: 18px;
+            height: 18px;
+            background: url(../assets/icons/svg/loop.svg) no-repeat;
+            background-size: contain;
+            transition: 0.5s;
+        }
+    
+    input[type="search" i]::-webkit-search-cancel-button {
+        @include cross(10px, 10px, contain, 30px);
+    }
+}
+
+
+
+
+
+
+/* ----------------------- RECIPE SECTION ----------------------- */
+
+.recipe_section {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.recipe_card {
+    background-color: $white;
+    border-radius: 10px;
+    // margin-bottom: 50px;
+    width: 70%;
+    margin: 50px;
+    position: relative;
+    transition-duration: 0.5s;
+    cursor: pointer;
+    box-shadow: 0px 4px 34px 30px rgba(0, 0, 0, 0.04);
+
+    &:hover {
+        transform: scale(1.03);
+    }
+
+    .recipe_duration_container {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background-color: $yellow;
+        border-radius: 15px;
+        padding: 5px 15px;
+    }
+
+    .recipe_photo {
+        width: 100%;
+        height: 200px;
+        border-radius: 10px 10px 0 0;
+        object-fit: cover;
+    }
+
+}
+
+.recipe_description {
+    margin: 20px 25px;
+
+    .recipe_title {
+        padding-bottom: 15px;
+        font-size: 18px;
+    }
+
+    .title {
+        color: #7A7A7A;
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 1.08px;
+        padding-bottom: 15px;
+        text-transform: uppercase;
+    }
+
+    .recipe_text {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+    }
+
+    .text {
+        font-size: 16px;
+        margin-bottom: 15px;
+    }
+
+    .ingredients_list {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+
+        .ingredients {
+            display: flex;
+            flex-direction: column;
+            font-weight: bold;
+        }
+
+        .quantity {
+            color: $grey;
+            font-weight: lighter;
+        }
+        
+    }
+
+
+}
