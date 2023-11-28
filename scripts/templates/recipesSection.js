@@ -1,15 +1,37 @@
+import { context } from "../pages/home.js";
+
 export class RecipesManager {
   constructor(recipes) {
     this.recipes = recipes;
+    this.originRecipes = recipes;
   }
 
-  displayRecipes() {
+  displayRecipes(recipes = this.originRecipes) {
+    console.log(this.originRecipes);
     const gridDOMElements = [];
 
-    this.recipes.forEach((item) => {
+    const recipesNumber = document.querySelector(".recipes_number");
+    recipesNumber.innerHTML = `${recipes.length} recettes`;
+
+    recipes.forEach((item) => {
       const element = item;
       const picture = `/assets/dishes/${element.image}`;
 
+      const ingredients = [];
+      for (const x in element.ingredients) {
+        const ingre = element.ingredients[x].ingredient;
+        const quant =
+          element.ingredients[x].quantity === undefined
+            ? " "
+            : " " + element.ingredients[x].quantity;
+        const uni =
+          element.ingredients[x].unit === undefined
+            ? " "
+            : element.ingredients[x].unit;
+        ingredients.push(
+          `<li class="ingredients text">${ingre} <span class="quantity">${quant} ${uni}</span></li> `
+        );
+      }
       gridDOMElements.push(`
           <div class="recipe_card">
           <div class="recipe_duration_container">
@@ -25,7 +47,7 @@ export class RecipesManager {
               <div class="ingredients_container">
                   <p class="ingredients_title title">Ingrédients</p>
                   <ul class="ingredients_list">
-                  <li></li>
+                  ${ingredients.join("")}
                   </ul>
               </div>
           </div>
@@ -35,54 +57,50 @@ export class RecipesManager {
     return gridDOMElements.join("");
   }
 
-  getLists() {
-    this.ingredientsList = [];
-    for (const recipe of this.recipes) {
-      for (const ingredient of recipe.ingredients) {
-        if (this.ingredientsList.indexOf(ingredient.ingredient) === -1) {
-          this.ingredientsList.push(ingredient.ingredient);
-        }
+  filterData() {
+    const searchBar = document.querySelector(".search_bar");
+
+    searchBar.addEventListener("input", () => {
+      context.text = searchBar.value;
+      const searchedString = context.text.toLowerCase().replace(/\s/g, "");
+
+      this.recipes = this.originRecipes.filter(
+        (el) =>
+          el.name.toLowerCase().includes(searchedString) ||
+          el.description.toLowerCase().includes(searchedString) ||
+          el.ingredientsList.some((element) => {
+            return element.toLowerCase().includes(searchedString);
+          }) ||
+          `${el.description + el.name + el.ingredientsList}`
+            .toLowerCase()
+            .replace(/\s/g, "")
+            .includes(searchedString) ||
+          `${el.name + el.description + el.ingredientsList}`
+            .toLowerCase()
+            .replace(/\s/g, "")
+            .includes(searchedString)
+      );
+
+      if (this.recipes.length === 0) {
+        const recipeGrid = document.querySelector(".recipe_section");
+        recipeGrid.style.display = "none";
+
+        const errorSection = document.querySelector(".error");
+        errorSection.style.display = "flex";
+        errorSection.innerHTML = `
+        <h1 class="msg">Aucune recette ne contient "${context.text}"</h1>
+      `;
+      } else {
+        const recipeGrid = document.querySelector(".recipe_section");
+        recipeGrid.style.display = "grid";
+        const errorSection = document.querySelector(".error");
+        errorSection.style.display = "none";
       }
-    }
-
-    this.appliancesList = [];
-    for (const recipe of this.recipes) {
-      if (this.appliancesList.indexOf(recipe.appliance) === -1) {
-        this.appliancesList.push(recipe.appliance);
-      }
-    }
-
-    this.ustensilsList = [];
-    for (const recipe of this.recipes) {
-      for (const ustensil of recipe.ustensils) {
-        if (this.ustensilsList.indexOf(ustensil) === -1) {
-          this.ustensilsList.push(ustensil);
-        }
-      }
-    }
-  }
-
-  displayIngredientsList() {
-    const ingredientsArray = [];
-    for (let i of this.ingredientsList) {
-      ingredientsArray.push(`<li class="list_dropdown">${i}</li>`);
-    }
-    return ingredientsArray.join("");
-  }
-
-  displayAppliancesList() {
-    const appliancesArray = [];
-    for (let i of this.appliancesList) {
-      appliancesArray.push(`<li class="list_dropdown">${i}</li>`);
-    }
-    return appliancesArray.join("");
-  }
-
-  displayUstensilsList() {
-    const ustensilsArray = [];
-    for (let i of this.ustensilsList) {
-      ustensilsArray.push(`<li class="list_dropdown">${i}</li>`);
-    }
-    return ustensilsArray.join("");
+      const filterEvent = new CustomEvent("filterRecipes", {
+        detail: this.recipes,
+      });
+      document.dispatchEvent(filterEvent);
+      return this.displayRecipes(this.recipes);
+    });
   }
 }
