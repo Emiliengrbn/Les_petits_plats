@@ -18,7 +18,6 @@ function displayData(recipe) {
   const recipesGrid = recipesManager.displayRecipes();
   gridContainer.innerHTML = recipesGrid;
 
-  // recipesManager.searchEvent();
   recipesManager.filterData();
 
   dropdownsManager.getLists();
@@ -46,24 +45,12 @@ function displayData(recipe) {
   document.addEventListener("filterRecipes", (e) => {
     if (e.detail) {
       gridContainer.innerHTML = recipesManager.displayRecipes(e.detail);
+
       dropdownsManager.getLists(e.detail);
       ingredientsContainer.innerHTML =
         dropdownsManager.displayIngredientsList();
       appliancesContainer.innerHTML = dropdownsManager.displayAppliancesList();
       ustensilsContainer.innerHTML = dropdownsManager.displayUstensilsList();
-
-      // const aze = [];
-      // for (const recipe of e.detail) {
-      //   for (const wxc of recipe.ingredientsList) {
-      //     if (aze.indexOf(wxc) === -1) {
-      //       aze.push(wxc);
-      //     }
-      //     const ingredientsList = dropdownsManager.displayIngredientsList(aze);
-      //     ingredientsContainer.innerHTML = ingredientsList;
-      //   }
-      // }
-
-      // gridContainer.innerHTML = e.detail;
     }
   });
 

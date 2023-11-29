@@ -7,7 +7,6 @@ export class RecipesManager {
   }
 
   displayRecipes(recipes = this.originRecipes) {
-    console.log(this.originRecipes);
     const gridDOMElements = [];
 
     const recipesNumber = document.querySelector(".recipes_number");
@@ -61,46 +60,55 @@ export class RecipesManager {
     const searchBar = document.querySelector(".search_bar");
 
     searchBar.addEventListener("input", () => {
-      context.text = searchBar.value;
-      const searchedString = context.text.toLowerCase().replace(/\s/g, "");
+      if (searchBar.value.length > 2) {
+        context.text = searchBar.value;
+        const searchedString = context.text.toLowerCase().replace(/\s/g, "");
 
-      this.recipes = this.originRecipes.filter(
-        (el) =>
-          el.name.toLowerCase().includes(searchedString) ||
-          el.description.toLowerCase().includes(searchedString) ||
-          el.ingredientsList.some((element) => {
-            return element.toLowerCase().includes(searchedString);
-          }) ||
-          `${el.description + el.name + el.ingredientsList}`
-            .toLowerCase()
-            .replace(/\s/g, "")
-            .includes(searchedString) ||
-          `${el.name + el.description + el.ingredientsList}`
-            .toLowerCase()
-            .replace(/\s/g, "")
-            .includes(searchedString)
-      );
+        this.recipes = this.originRecipes.filter(
+          (el) =>
+            el.name.toLowerCase().includes(searchedString) ||
+            el.description.toLowerCase().includes(searchedString) ||
+            el.ingredientsList.some((element) => {
+              return element.toLowerCase().includes(searchedString);
+            }) ||
+            `${el.description + el.name + el.ingredientsList}`
+              .toLowerCase()
+              .replace(/\s/g, "")
+              .includes(searchedString) ||
+            `${el.name + el.description + el.ingredientsList}`
+              .toLowerCase()
+              .replace(/\s/g, "")
+              .includes(searchedString)
+        );
 
-      if (this.recipes.length === 0) {
-        const recipeGrid = document.querySelector(".recipe_section");
-        recipeGrid.style.display = "none";
+        if (this.recipes.length === 0) {
+          const recipeGrid = document.querySelector(".recipe_section");
+          recipeGrid.style.display = "none";
 
-        const errorSection = document.querySelector(".error");
-        errorSection.style.display = "flex";
-        errorSection.innerHTML = `
+          const errorSection = document.querySelector(".error");
+          errorSection.style.display = "flex";
+          errorSection.innerHTML = `
         <h1 class="msg">Aucune recette ne contient "${context.text}"</h1>
-      `;
+        `;
+        } else {
+          const recipeGrid = document.querySelector(".recipe_section");
+          recipeGrid.style.display = "grid";
+          const errorSection = document.querySelector(".error");
+          errorSection.style.display = "none";
+        }
+
+        const filterEvent = new CustomEvent("filterRecipes", {
+          detail: this.recipes,
+        });
+        document.dispatchEvent(filterEvent);
+
+        return this.displayRecipes(this.recipes);
       } else {
-        const recipeGrid = document.querySelector(".recipe_section");
-        recipeGrid.style.display = "grid";
-        const errorSection = document.querySelector(".error");
-        errorSection.style.display = "none";
+        const filterEvent = new CustomEvent("filterRecipes", {
+          detail: this.originRecipes,
+        });
+        document.dispatchEvent(filterEvent);
       }
-      const filterEvent = new CustomEvent("filterRecipes", {
-        detail: this.recipes,
-      });
-      document.dispatchEvent(filterEvent);
-      return this.displayRecipes(this.recipes);
     });
   }
 }

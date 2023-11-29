@@ -168,7 +168,7 @@ header {
   padding-top: 10px;
   overflow: auto;
   text-overflow: clip;
-  height: 170px;
+  max-height: 170px;
 }
 .dropdown .dropdown_list li {
   padding: 5px 10px;

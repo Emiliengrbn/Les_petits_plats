@@ -147,7 +147,7 @@ header {
         padding-top: 10px;
         overflow: auto;
         text-overflow: clip;
-        height: 170px;
+        max-height: 170px;
 
         li {
             padding: 5px 10px;

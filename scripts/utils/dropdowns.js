@@ -3,11 +3,12 @@ import { context } from "../pages/home.js";
 export class DropdownsManager {
   constructor(recipes) {
     this.recipes = recipes;
+    this.originRecipes = recipes;
     this.tags = [];
     document.addEventListener("click", this.addTag.bind(this));
   }
 
-  getLists(recipes = this.recipes) {
+  getLists(recipes = this.originRecipes) {
     this.ingredientsList = [];
     this.ustensilsList = [];
     this.appliancesList = [];
@@ -93,21 +94,50 @@ export class DropdownsManager {
       tagItem.appendChild(deleteBtn);
       document.querySelector(".tags_section").appendChild(tagItem);
 
-      //ENVOI DU TAG DANS LE CONTEXT
+      //ENVOI DU TAG DANS LE CONTEXT ET FILTRE AVEC TAG
       if (e.target.classList.contains("ingredient")) {
         context.ingredients.push(e.target.innerText);
+        this.filteredByIngredients();
       } else if (e.target.classList.contains("appliance")) {
         context.appliances.push(e.target.innerText);
+        this.filteredByAppliances();
       } else if (e.target.classList.contains("ustensil")) {
         context.ustensils.push(e.target.innerText);
+        this.filteredByUstensils();
       }
     }
+  }
 
-    // this.filterData();
-    // const filterEvent = new CustomEvent("filterRecipes", {
-    //   detail: this.filterData(),
-    // });
-    // document.dispatchEvent(filterEvent);
+  filteredByIngredients() {
+    this.recipes = this.originRecipes.filter((recipe) =>
+      recipe.ingredientsList.some((ingredient) => {
+        return ingredient.includes(context.ingredients);
+      })
+    );
+    this.CustomEvent(this.recipes);
+  }
+
+  filteredByUstensils() {
+    this.recipes = this.originRecipes.filter((recipe) =>
+      recipe.ustensils.some((ustensil) => {
+        return ustensil.includes(context.ustensils);
+      })
+    );
+    this.CustomEvent(this.recipes);
+  }
+
+  filteredByAppliances() {
+    this.recipes = this.originRecipes.filter((recipe) => {
+      return recipe.appliance.includes(context.appliances);
+    });
+    this.CustomEvent(this.recipes);
+  }
+
+  CustomEvent(recipes = this.originRecipes) {
+    const filterEvent = new CustomEvent("filterRecipes", {
+      detail: recipes,
+    });
+    document.dispatchEvent(filterEvent);
   }
 
   deleteTag(ref, tag) {
@@ -120,6 +150,7 @@ export class DropdownsManager {
     this.deleteContext(context.ingredients, tag);
     this.deleteContext(context.appliances, tag);
     this.deleteContext(context.ustensils, tag);
+    this.CustomEvent();
   }
 
   deleteContext(category, tag) {
