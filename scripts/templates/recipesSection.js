@@ -81,22 +81,30 @@ export class RecipesManager {
   }
 
   filterData(query) {
-    return this.recipes.filter(
-      (el) =>
-        el.name.toLowerCase().includes(query) ||
-        el.description.toLowerCase().includes(query) ||
-        el.ingredientsList.some((element) => {
-          return element.toLowerCase().includes(query);
-        }) ||
-        `${el.description + el.name + el.ingredientsList}`
+    const filteredRecipes = [];
+
+    this.recipes.forEach((recipe) => {
+      // Vérifier si le texte de recherche est présent dans name, description, ou ingr
+      if (
+        recipe.name.toLowerCase().includes(query.toLowerCase()) ||
+        recipe.description.toLowerCase().includes(query.toLowerCase()) ||
+        recipe.ingredientsList.some((ingredient) =>
+          ingredient.toLowerCase().includes(query.toLowerCase())
+        ) ||
+        `${recipe.description + recipe.name + recipe.ingredientsList}`
           .toLowerCase()
           .replace(/\s/g, "")
           .includes(query) ||
-        `${el.name + el.description + el.ingredientsList}`
+        `${recipe.name + recipe.description + recipe.ingredientsList}`
           .toLowerCase()
           .replace(/\s/g, "")
           .includes(query)
-    );
+      ) {
+        filteredRecipes.push(recipe);
+      }
+    });
+
+    return filteredRecipes;
   }
 
   dispatchSearchEvent() {

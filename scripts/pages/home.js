@@ -39,6 +39,7 @@ function displayData(recipe) {
 
   document.addEventListener("SearchRecipes", () => {
     const resultsFromTextSearch = recipesManager.filterData(context.text);
+    console.log(resultsFromTextSearch);
     gridContainer.innerHTML = recipesManager.displayRecipes(
       resultsFromTextSearch
     );
