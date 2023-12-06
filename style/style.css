@@ -285,7 +285,7 @@ header {
 }
 
 .error_dropdown {
-  display: flex;
+  display: none;
   height: 65px;
   align-items: center;
   justify-content: center;

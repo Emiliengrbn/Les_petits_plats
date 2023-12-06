@@ -18,39 +18,43 @@ function displayData(recipe) {
   const recipesGrid = recipesManager.displayRecipes();
   gridContainer.innerHTML = recipesGrid;
 
-  recipesManager.filterData();
-
-  dropdownsManager.getLists();
-
-  // DROPDOWN INGREDIENT
+  function displayLists(result = recipe) {
+    dropdownsManager.getLists(result);
+    ingredientsContainer.innerHTML = dropdownsManager.displayIngredientsList();
+    appliancesContainer.innerHTML = dropdownsManager.displayAppliancesList();
+    ustensilsContainer.innerHTML = dropdownsManager.displayUstensilsList();
+  }
   const ingredientsContainer = document.getElementById("ingredients_dropdown");
-  const ingredientsList = dropdownsManager.displayIngredientsList();
-  ingredientsContainer.innerHTML = ingredientsList;
-
-  // DROPDOWN APPAREIL
   const appliancesContainer = document.getElementById("appliances_dropdown");
-  const appliancesList = dropdownsManager.displayAppliancesList();
-  appliancesContainer.innerHTML = appliancesList;
-
-  // DROPDOWN USTENSILE
   const ustensilsContainer = document.getElementById("ustensils_dropdown");
-  const ustensilsList = dropdownsManager.displayUstensilsList();
-  ustensilsContainer.innerHTML = ustensilsList;
+
+  displayLists();
+
+  recipesManager.searchInput();
 
   dropdownsManager.displayDropdown();
   dropdownsManager.filterIngredients();
   dropdownsManager.filterAppliances();
   dropdownsManager.filterUstensils();
 
-  document.addEventListener("filterRecipes", (e) => {
-    if (e.detail) {
-      gridContainer.innerHTML = recipesManager.displayRecipes(e.detail);
+  document.addEventListener("SearchRecipes", () => {
+    const resultsFromTextSearch = recipesManager.filterData(context.text);
+    gridContainer.innerHTML = recipesManager.displayRecipes(
+      resultsFromTextSearch
+    );
 
-      dropdownsManager.getLists(e.detail);
-      ingredientsContainer.innerHTML =
-        dropdownsManager.displayIngredientsList();
-      appliancesContainer.innerHTML = dropdownsManager.displayAppliancesList();
-      ustensilsContainer.innerHTML = dropdownsManager.displayUstensilsList();
+    displayLists(resultsFromTextSearch);
+
+    const resultFromIngredientSearch = dropdownsManager.filteredByTags(
+      resultsFromTextSearch
+    );
+    gridContainer.innerHTML = recipesManager.displayRecipes(
+      resultFromIngredientSearch
+    );
+    displayLists(resultFromIngredientSearch);
+
+    if (context.text.length < 3) {
+      gridContainer.innerHTML = recipesManager.displayRecipes();
     }
   });
 

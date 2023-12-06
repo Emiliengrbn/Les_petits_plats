@@ -8,7 +8,6 @@ export class RecipesManager {
 
   displayRecipes(recipes = this.originRecipes) {
     const gridDOMElements = [];
-
     const recipesNumber = document.querySelector(".recipes_number");
     recipesNumber.innerHTML = `${recipes.length} recettes`;
 
@@ -56,59 +55,52 @@ export class RecipesManager {
     return gridDOMElements.join("");
   }
 
-  filterData() {
+  searchInput() {
     const searchBar = document.querySelector(".search_bar");
 
     searchBar.addEventListener("input", () => {
-      if (searchBar.value.length > 2) {
-        context.text = searchBar.value;
-        const searchedString = context.text.toLowerCase().replace(/\s/g, "");
+      context.text = searchBar.value.toLowerCase().replace(/\s/g, "");
 
-        this.recipes = this.originRecipes.filter(
-          (el) =>
-            el.name.toLowerCase().includes(searchedString) ||
-            el.description.toLowerCase().includes(searchedString) ||
-            el.ingredientsList.some((element) => {
-              return element.toLowerCase().includes(searchedString);
-            }) ||
-            `${el.description + el.name + el.ingredientsList}`
-              .toLowerCase()
-              .replace(/\s/g, "")
-              .includes(searchedString) ||
-            `${el.name + el.description + el.ingredientsList}`
-              .toLowerCase()
-              .replace(/\s/g, "")
-              .includes(searchedString)
-        );
+      if (this.recipes.length === 0) {
+        const recipeGrid = document.querySelector(".recipe_section");
+        recipeGrid.style.display = "none";
 
-        if (this.recipes.length === 0) {
-          const recipeGrid = document.querySelector(".recipe_section");
-          recipeGrid.style.display = "none";
-
-          const errorSection = document.querySelector(".error");
-          errorSection.style.display = "flex";
-          errorSection.innerHTML = `
-        <h1 class="msg">Aucune recette ne contient "${context.text}"</h1>
-        `;
-        } else {
-          const recipeGrid = document.querySelector(".recipe_section");
-          recipeGrid.style.display = "grid";
-          const errorSection = document.querySelector(".error");
-          errorSection.style.display = "none";
-        }
-
-        const filterEvent = new CustomEvent("filterRecipes", {
-          detail: this.recipes,
-        });
-        document.dispatchEvent(filterEvent);
-
-        return this.displayRecipes(this.recipes);
+        const errorSection = document.querySelector(".error");
+        errorSection.style.display = "flex";
+        errorSection.innerHTML = `
+            <h1 class="msg">Aucune recette ne contient "${context.text}"</h1>
+            `;
       } else {
-        const filterEvent = new CustomEvent("filterRecipes", {
-          detail: this.originRecipes,
-        });
-        document.dispatchEvent(filterEvent);
+        const recipeGrid = document.querySelector(".recipe_section");
+        recipeGrid.style.display = "grid";
+        const errorSection = document.querySelector(".error");
+        errorSection.style.display = "none";
       }
+      this.dispatchSearchEvent();
     });
+  }
+
+  filterData(query) {
+    return this.recipes.filter(
+      (el) =>
+        el.name.toLowerCase().includes(query) ||
+        el.description.toLowerCase().includes(query) ||
+        el.ingredientsList.some((element) => {
+          return element.toLowerCase().includes(query);
+        }) ||
+        `${el.description + el.name + el.ingredientsList}`
+          .toLowerCase()
+          .replace(/\s/g, "")
+          .includes(query) ||
+        `${el.name + el.description + el.ingredientsList}`
+          .toLowerCase()
+          .replace(/\s/g, "")
+          .includes(query)
+    );
+  }
+
+  dispatchSearchEvent() {
+    const event = new CustomEvent("SearchRecipes");
+    document.dispatchEvent(event);
   }
 }

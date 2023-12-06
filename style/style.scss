@@ -275,7 +275,7 @@ header {
 }
 
 .error_dropdown {
-    display: flex;
+    display: none;
     height: 65px;
     align-items: center;
     justify-content: center;
@@ -393,10 +393,6 @@ header {
     main {
         padding: 0 30px;
     }
-
-    // .recipe_section {
-    //     grid-template-columns: repeat(2, 1fr);
-    // }
 }
 
 @media only screen and (max-width: 480px) {

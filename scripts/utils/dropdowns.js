@@ -97,49 +97,39 @@ export class DropdownsManager {
       //ENVOI DU TAG DANS LE CONTEXT ET FILTRE AVEC TAG
       if (e.target.classList.contains("ingredient")) {
         context.ingredients.push(e.target.innerText);
-        this.filteredByIngredients();
+        this.dispatchSearchEvent();
+        this.filteredByTags();
       } else if (e.target.classList.contains("appliance")) {
         context.appliances.push(e.target.innerText);
-        this.filteredByAppliances();
+        this.dispatchSearchEvent();
+        this.filteredByTags();
       } else if (e.target.classList.contains("ustensil")) {
         context.ustensils.push(e.target.innerText);
-        this.filteredByUstensils();
+        this.dispatchSearchEvent();
+        this.filteredByTags();
       }
     }
   }
 
-  filteredByIngredients() {
-    this.recipes = this.originRecipes.filter((recipe) =>
-      recipe.ingredientsList.some((ingredient) => {
-        return ingredient.includes(context.ingredients);
-      })
+  dispatchSearchEvent() {
+    const event = new CustomEvent("SearchRecipes");
+    document.dispatchEvent(event);
+  }
+
+  filteredByTags(source = this.originRecipes) {
+    return source.filter(
+      (recipe) =>
+        context.ingredients.every((ingredient) =>
+          recipe.ingredientsList.includes(ingredient)
+        ) &&
+        context.ustensils.every((ustensil) =>
+          recipe.ustensils.includes(ustensil)
+        ) &&
+        context.appliances.every((appliance) =>
+          recipe.appliance.includes(appliance)
+        )
     );
-    this.CustomEvent(this.recipes);
   }
-
-  filteredByUstensils() {
-    this.recipes = this.originRecipes.filter((recipe) =>
-      recipe.ustensils.some((ustensil) => {
-        return ustensil.includes(context.ustensils);
-      })
-    );
-    this.CustomEvent(this.recipes);
-  }
-
-  filteredByAppliances() {
-    this.recipes = this.originRecipes.filter((recipe) => {
-      return recipe.appliance.includes(context.appliances);
-    });
-    this.CustomEvent(this.recipes);
-  }
-
-  CustomEvent(recipes = this.originRecipes) {
-    const filterEvent = new CustomEvent("filterRecipes", {
-      detail: recipes,
-    });
-    document.dispatchEvent(filterEvent);
-  }
-
   deleteTag(ref, tag) {
     const parent = ref.parentNode.parentNode;
     parent.removeChild(ref.parentNode);
@@ -150,7 +140,7 @@ export class DropdownsManager {
     this.deleteContext(context.ingredients, tag);
     this.deleteContext(context.appliances, tag);
     this.deleteContext(context.ustensils, tag);
-    this.CustomEvent();
+    this.dispatchSearchEvent();
   }
 
   deleteContext(category, tag) {
@@ -160,6 +150,7 @@ export class DropdownsManager {
     }
   }
 
+  //FILTRER AVEC LA SEARCHBAR DU DROPDOWN
   filterIngredients() {
     const ingredientSearchBar = document.querySelector(".ingredient_input");
     ingredientSearchBar.addEventListener("input", () => {
@@ -195,6 +186,7 @@ export class DropdownsManager {
     });
   }
 
+  //FILTRER AVEC LA SEARCHBAR DU DROPDOWN
   filterAppliances() {
     const applianceSearchBar = document.querySelector(".appliance_input");
     applianceSearchBar.addEventListener("input", () => {
@@ -230,6 +222,7 @@ export class DropdownsManager {
     });
   }
 
+  //FILTRER AVEC LA SEARCHBAR DU DROPDOWN
   filterUstensils() {
     const ustensilSearchBar = document.querySelector(".ustensil_input");
     ustensilSearchBar.addEventListener("input", () => {
