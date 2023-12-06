@@ -84,7 +84,6 @@ export class RecipesManager {
     const filteredRecipes = [];
 
     this.recipes.forEach((recipe) => {
-      // Vérifier si le texte de recherche est présent dans name, description, ou ingr
       if (
         recipe.name.toLowerCase().includes(query.toLowerCase()) ||
         recipe.description.toLowerCase().includes(query.toLowerCase()) ||
