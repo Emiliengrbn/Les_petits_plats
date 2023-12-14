@@ -61,6 +61,10 @@ main {
   background: #EDEDED;
 }
 
+label {
+  text-indent: -99999px;
+}
+
 /* ----------------------- HEADER ----------------------- */
 header {
   display: flex;

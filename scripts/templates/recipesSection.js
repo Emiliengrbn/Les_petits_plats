@@ -15,6 +15,7 @@ export class RecipesManager {
       const element = item;
       const picture = `/assets/dishes/${element.image}`;
 
+      // Récupérer ingredients, quantité et unité
       const ingredients = [];
       for (const x in element.ingredients) {
         const ingre = element.ingredients[x].ingredient;
@@ -59,9 +60,14 @@ export class RecipesManager {
     const searchBar = document.querySelector(".search_bar");
 
     searchBar.addEventListener("input", () => {
-      context.text = searchBar.value.toLowerCase().replace(/\s/g, "");
+      if (searchBar.value.length > 2) {
+        context.text = searchBar.value.toLowerCase().replace(/\s/g, "");
+      } else {
+        context.text = "";
+      }
 
-      if (this.recipes.length === 0) {
+      // Message d'erreur
+      if (this.filterData(context.text).length === 0) {
         const recipeGrid = document.querySelector(".recipe_section");
         recipeGrid.style.display = "none";
 
@@ -83,26 +89,38 @@ export class RecipesManager {
   filterData(query) {
     const filteredRecipes = [];
 
-    this.recipes.forEach((recipe) => {
+    for (let i = 0; i < this.recipes.length; i++) {
       if (
-        recipe.name.toLowerCase().includes(query.toLowerCase()) ||
-        recipe.description.toLowerCase().includes(query.toLowerCase()) ||
-        recipe.ingredientsList.some((ingredient) =>
-          ingredient.toLowerCase().includes(query.toLowerCase())
-        ) ||
-        `${recipe.description + recipe.name + recipe.ingredientsList}`
+        this.recipes[i].name.toLowerCase().includes(query.toLowerCase()) ||
+        this.recipes[i].description
           .toLowerCase()
-          .replace(/\s/g, "")
-          .includes(query) ||
-        `${recipe.name + recipe.description + recipe.ingredientsList}`
-          .toLowerCase()
-          .replace(/\s/g, "")
-          .includes(query)
+          .includes(
+            query.toLowerCase() ||
+              `${this.recipes.description + this.recipes.name}`
+                .toLowerCase()
+                .replace(/\s/g, "")
+                .includes(query)
+          )
       ) {
-        filteredRecipes.push(recipe);
+        // Ajouter la recette au tableau filtré
+        filteredRecipes.push(this.recipes[i]);
+      } else {
+        // Sinon, vérifier les ingrédients
+        for (const ingredient of this.recipes[i].ingredientsList) {
+          if (
+            ingredient.toLowerCase().includes(query.toLowerCase()) ||
+            `${this.recipes.ingredientsList}`
+              .toLowerCase()
+              .replace(/\s/g, "")
+              .includes(query)
+          ) {
+            // Ajouter la recette au tableau filtré
+            filteredRecipes.push(this.recipes[i]);
+            break; // Sortir de la boucle dès qu'un ingrédient est trouvé
+          }
+        }
       }
-    });
-
+    }
     return filteredRecipes;
   }
 

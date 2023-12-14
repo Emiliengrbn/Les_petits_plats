@@ -18,7 +18,9 @@
         <div class="title-search_bar">
             <h1 class="title">cherchez parmi plus de 1500 recettes du quotidien, simples et délicieuses</h1>
             <div class="search_bar-container">
-                <input type="search" placeholder="Rechercher une recette, un ingrédient..." class="search_bar">
+                <label for="text_search">Text search</label>
+                <input id="text_search" type="search" placeholder="Rechercher une recette, un ingrédient..."
+                    class="search_bar">
                 <button type="submit" class="search_button">
                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="29" viewBox="0 0 28 29" fill="none">
                         <circle cx="10" cy="10.4219" r="9.5" stroke="white" />
@@ -40,7 +42,8 @@
                         </div>
                         <div class="dropdown_menu hide_ingredient ingredient_menu">
                             <div class="dropdown_search">
-                                <input type="search" class="ingredient_input input">
+                                <label for="ingredient_search">Ingredient search</label>
+                                <input id="ingredient_search" type="search" class="ingredient_input input">
                                 <div class="loop">loop</div>
                             </div>
                             <ul id="ingredients_dropdown" class="dropdown_list"></ul>
@@ -54,7 +57,8 @@
                         </div>
                         <div class="dropdown_menu hide_appliance appliance_menu">
                             <div class="dropdown_search">
-                                <input type="search" class="appliance_input input">
+                                <label for="appliance_search">Appliance search</label>
+                                <input id="appliance_search" type="search" class="appliance_input input">
                                 <div class="loop">loop</div>
                             </div>
                             <ul id="appliances_dropdown" class="dropdown_list"></ul>
@@ -68,7 +72,8 @@
                         </div>
                         <div class="dropdown_menu hide_ustensil ustensil_menu">
                             <div class="dropdown_search">
-                                <input type="search" class="ustensil_input input">
+                                <label for="ustensil_search">Ustensil search</label>
+                                <input id="ustensil_search" type="search" class="ustensil_input input">
                                 <div class="loop">loop</div>
                             </div>
                             <ul id="ustensils_dropdown" class="dropdown_list"></ul>

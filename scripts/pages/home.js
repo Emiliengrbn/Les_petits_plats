@@ -38,6 +38,21 @@ function displayData(recipe) {
   dropdownsManager.filterUstensils();
 
   document.addEventListener("SearchRecipes", () => {
+    const searchBar = document.querySelector(".search_bar");
+    // if (
+    //   searchBar.value.length > 2 ||
+    //   context.ingredients.length > 0 ||
+    //   context.ustensils.length > 0 ||
+    //   context.appliances.length > 0
+    // ) {
+    // if (
+    //   searchBar.value.length < 3 &&
+    //   context.ingredients.length === 0 &&
+    //   context.ustensils.length === 0 &&
+    //   context.appliances.length === 0
+    // ) {
+    //   gridContainer.innerHTML = recipesManager.displayRecipes();
+    // } else {
     const resultsFromTextSearch = recipesManager.filterData(context.text);
     gridContainer.innerHTML = recipesManager.displayRecipes(
       resultsFromTextSearch
@@ -52,10 +67,16 @@ function displayData(recipe) {
       resultFromIngredientSearch
     );
     displayLists(resultFromIngredientSearch);
-
-    if (context.text.length < 3) {
-      gridContainer.innerHTML = recipesManager.displayRecipes();
-    }
+    // }
+    // } else
+    // if (
+    //   searchBar.value.length < 3 &&
+    //   context.ingredients.length === 0 &&
+    //   context.ustensils.length === 0 &&
+    //   context.appliances.length === 0
+    // ) {
+    //   gridContainer.innerHTML = recipesManager.displayRecipes();
+    // }
   });
 
   document.addEventListener("filterIngredient", (e) => {

@@ -31,7 +31,7 @@ export class DropdownsManager {
 
   displayIngredientsList(ingr = this.ingredientsList) {
     const ingredientsArray = [];
-    for (let i of ingr) {
+    for (const i of ingr) {
       ingredientsArray.push(`<li class="list_dropdown ingredient">${i}</li>`);
     }
     return ingredientsArray.join("");
@@ -39,7 +39,7 @@ export class DropdownsManager {
 
   displayAppliancesList(app = this.appliancesList) {
     const appliancesArray = [];
-    for (let i of app) {
+    for (const i of app) {
       appliancesArray.push(`<li class="list_dropdown appliance">${i}</li>`);
     }
     return appliancesArray.join("");
@@ -47,7 +47,7 @@ export class DropdownsManager {
 
   displayUstensilsList(ust = this.ustensilsList) {
     const ustensilsArray = [];
-    for (let i of ust) {
+    for (const i of ust) {
       ustensilsArray.push(`<li class="list_dropdown ustensil">${i}</li>`);
     }
     return ustensilsArray.join("");
@@ -94,7 +94,7 @@ export class DropdownsManager {
       tagItem.appendChild(deleteBtn);
       document.querySelector(".tags_section").appendChild(tagItem);
 
-      //ENVOI DU TAG DANS LE CONTEXT ET FILTRE AVEC TAG
+      // ENVOI DU TAG DANS LE CONTEXT ET FILTRE AVEC TAG
       if (e.target.classList.contains("ingredient")) {
         context.ingredients.push(e.target.innerText);
         this.dispatchSearchEvent();
@@ -130,13 +130,14 @@ export class DropdownsManager {
         )
     );
   }
+
   deleteTag(ref, tag) {
     const parent = ref.parentNode.parentNode;
     parent.removeChild(ref.parentNode);
     const index = this.tags.indexOf(tag);
     this.tags.splice(index);
 
-    //SUPPRIMER LE TAG DE MON CONTEXT
+    // SUPPRIMER LE TAG DE MON CONTEXT
     this.deleteContext(context.ingredients, tag);
     this.deleteContext(context.appliances, tag);
     this.deleteContext(context.ustensils, tag);
@@ -150,7 +151,7 @@ export class DropdownsManager {
     }
   }
 
-  //FILTRER AVEC LA SEARCHBAR DU DROPDOWN
+  // FILTRER AVEC LA SEARCHBAR DU DROPDOWN
   filterIngredients() {
     const ingredientSearchBar = document.querySelector(".ingredient_input");
     ingredientSearchBar.addEventListener("input", () => {
@@ -186,7 +187,7 @@ export class DropdownsManager {
     });
   }
 
-  //FILTRER AVEC LA SEARCHBAR DU DROPDOWN
+  // FILTRER AVEC LA SEARCHBAR DU DROPDOWN
   filterAppliances() {
     const applianceSearchBar = document.querySelector(".appliance_input");
     applianceSearchBar.addEventListener("input", () => {
@@ -222,7 +223,7 @@ export class DropdownsManager {
     });
   }
 
-  //FILTRER AVEC LA SEARCHBAR DU DROPDOWN
+  // FILTRER AVEC LA SEARCHBAR DU DROPDOWN
   filterUstensils() {
     const ustensilSearchBar = document.querySelector(".ustensil_input");
     ustensilSearchBar.addEventListener("input", () => {
