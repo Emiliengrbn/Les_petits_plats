@@ -59,9 +59,14 @@ export class RecipesManager {
     const searchBar = document.querySelector(".search_bar");
 
     searchBar.addEventListener("input", () => {
-      context.text = searchBar.value.toLowerCase().replace(/\s/g, "");
+      if (searchBar.value.length > 2) {
+        context.text = searchBar.value.toLowerCase().replace(/\s/g, "");
+      } else {
+        context.text = "";
+      }
 
-      if (this.recipes.length === 0) {
+      // Message d'erreur
+      if (this.filterData(context.text).length === 0) {
         const recipeGrid = document.querySelector(".recipe_section");
         recipeGrid.style.display = "none";
 
