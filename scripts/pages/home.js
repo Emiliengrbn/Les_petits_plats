@@ -1,32 +1,90 @@
 import { recipes } from "/data/recipes.js";
 import { RecipesManager } from "../templates/recipesSection.js";
+import { DropdownsManager } from "../utils/dropdowns.js";
+
+export const context = {
+  text: "",
+  ingredients: [],
+  ustensils: [],
+  appliances: [],
+};
 
 function displayData(recipe) {
   const gridContainer = document.getElementById("recipes");
 
   const recipesManager = new RecipesManager(recipe);
+  const dropdownsManager = new DropdownsManager(recipe);
 
   const recipesGrid = recipesManager.displayRecipes();
   gridContainer.innerHTML = recipesGrid;
 
-  recipesManager.getLists();
-
+  function displayLists(result = recipe) {
+    dropdownsManager.getLists(result);
+    ingredientsContainer.innerHTML = dropdownsManager.displayIngredientsList();
+    appliancesContainer.innerHTML = dropdownsManager.displayAppliancesList();
+    ustensilsContainer.innerHTML = dropdownsManager.displayUstensilsList();
+  }
   const ingredientsContainer = document.getElementById("ingredients_dropdown");
-  const ingredientsList = recipesManager.displayIngredientsList();
-  ingredientsContainer.innerHTML = ingredientsList;
-
   const appliancesContainer = document.getElementById("appliances_dropdown");
-  const appliancesList = recipesManager.displayAppliancesList();
-  appliancesContainer.innerHTML = appliancesList;
-
   const ustensilsContainer = document.getElementById("ustensils_dropdown");
-  const ustensilsList = recipesManager.displayUstensilsList();
-  ustensilsContainer.innerHTML = ustensilsList;
+
+  displayLists();
+
+  recipesManager.searchInput();
+
+  dropdownsManager.displayDropdown();
+  dropdownsManager.filterIngredients();
+  dropdownsManager.filterAppliances();
+  dropdownsManager.filterUstensils();
+
+  document.addEventListener("SearchRecipes", () => {
+    const resultsFromTextSearch = recipesManager.filterData(context.text);
+    gridContainer.innerHTML = recipesManager.displayRecipes(
+      resultsFromTextSearch
+    );
+
+    displayLists(resultsFromTextSearch);
+
+    const resultFromIngredientSearch = dropdownsManager.filteredByTags(
+      resultsFromTextSearch
+    );
+    gridContainer.innerHTML = recipesManager.displayRecipes(
+      resultFromIngredientSearch
+    );
+    displayLists(resultFromIngredientSearch);
+
+    if (context.text.length < 3) {
+      gridContainer.innerHTML = recipesManager.displayRecipes();
+    }
+  });
+
+  document.addEventListener("filterIngredient", (e) => {
+    if (e.detail) {
+      ingredientsContainer.innerHTML = e.detail;
+    }
+  });
+  document.addEventListener("filterAppliance", (e) => {
+    if (e.detail) {
+      appliancesContainer.innerHTML = e.detail;
+    }
+  });
+  document.addEventListener("filterUstensil", (e) => {
+    if (e.detail) {
+      ustensilsContainer.innerHTML = e.detail;
+    }
+  });
 }
 
 function init() {
   // Récupère les recettes
-  const recipe = recipes;
+  const recipe = recipes.map((recipe) => {
+    return {
+      ...recipe,
+      ingredientsList: recipe.ingredients.map((ingredient) =>
+        ingredient.ingredient.toLowerCase()
+      ),
+    };
+  });
   displayData(recipe);
 }
 

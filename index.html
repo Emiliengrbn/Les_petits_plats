@@ -30,43 +30,55 @@
     </header>
 
     <main>
-        <section id="sort" class="dropdown_section">
-            <div class="dropdowns_container">
-                <div class="dropdown">
-                    <div class="dropdown_title">
-                        <p>Ingrédients</p>
-                        <div class="chevron">chevron</div>
+        <section id="sort">
+            <div class="dropdown_section">
+                <div class="dropdowns_container">
+                    <div class="dropdown">
+                        <div class="dropdown_title dropdown_ingredient">
+                            <p>Ingrédients</p>
+                            <div class="chevron">chevron</div>
+                        </div>
+                        <div class="dropdown_menu hide_ingredient ingredient_menu">
+                            <div class="dropdown_search">
+                                <input type="search" class="ingredient_input input">
+                                <div class="loop">loop</div>
+                            </div>
+                            <ul id="ingredients_dropdown" class="dropdown_list"></ul>
+                            <div class="error_ingredient error_dropdown"></div>
+                        </div>
                     </div>
-                    <div class="dropdown_search">
-                        <input type="search">
-                        <div class="loop">loop</div>
+                    <div class="dropdown">
+                        <div class="dropdown_title dropdown_appliance">
+                            <p>Appareils</p>
+                            <div class="chevron">chevron</div>
+                        </div>
+                        <div class="dropdown_menu hide_appliance appliance_menu">
+                            <div class="dropdown_search">
+                                <input type="search" class="appliance_input input">
+                                <div class="loop">loop</div>
+                            </div>
+                            <ul id="appliances_dropdown" class="dropdown_list"></ul>
+                            <div class="error_appliance error_dropdown"></div>
+                        </div>
                     </div>
-                    <ul id="ingredients_dropdown" class="dropdown_list"></ul>
+                    <div class="dropdown">
+                        <div class="dropdown_title dropdown_ustensil">
+                            <p>Ustensiles</p>
+                            <div class="chevron">chevron</div>
+                        </div>
+                        <div class="dropdown_menu hide_ustensil ustensil_menu">
+                            <div class="dropdown_search">
+                                <input type="search" class="ustensil_input input">
+                                <div class="loop">loop</div>
+                            </div>
+                            <ul id="ustensils_dropdown" class="dropdown_list"></ul>
+                            <div class="error_ustensil error_dropdown"></div>
+                        </div>
+                    </div>
                 </div>
-                <div class="dropdown">
-                    <div class="dropdown_title">
-                        <p>Appareils</p>
-                        <div class="chevron">chevron</div>
-                    </div>
-                    <div class="dropdown_search">
-                        <input type="search">
-                        <div class="loop">loop</div>
-                    </div>
-                    <ul id="appliances_dropdown" class="dropdown_list"></ul>
-                </div>
-                <div class="dropdown">
-                    <div class="dropdown_title">
-                        <p>Ustensiles</p>
-                        <div class="chevron">chevron</div>
-                    </div>
-                    <div class="dropdown_search">
-                        <input type="search">
-                        <div class="loop">loop</div>
-                    </div>
-                    <ul id="ustensils_dropdown" class="dropdown_list"></ul>
-                </div>
+                <h3 class="recipes_number">50 recettes</h3>
             </div>
-            <h3>1500 recettes</h3>
+            <div class="tags_section"></div>
         </section>
         <section id="recipes" class="recipe_section">
             <!--  <div class="recipe_card">
@@ -115,6 +127,7 @@
             </div>-->
 
         </section>
+        <section class="error"></section>
     </main>
 
     <script src="./scripts/pages/home.js" type="module"></script>
