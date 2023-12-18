@@ -11,22 +11,23 @@ export class RecipesManager {
     const recipesNumber = document.querySelector(".recipes_number");
     recipesNumber.innerHTML = `${recipes.length} recettes`;
 
-    recipes.forEach((item) => {
-      const element = item;
-      const picture = `/assets/dishes/${element.image}`;
+    // recipes.forEach((item) => {
+    //const element = item;
+    for (const recipe of recipes) {
+      const picture = `/assets/dishes/${recipe.image}`;
 
       // Récupérer ingredients, quantité et unité
       const ingredients = [];
-      for (const x in element.ingredients) {
-        const ingre = element.ingredients[x].ingredient;
+      for (const x in recipe.ingredients) {
+        const ingre = recipe.ingredients[x].ingredient;
         const quant =
-          element.ingredients[x].quantity === undefined
+          recipe.ingredients[x].quantity === undefined
             ? " "
-            : " " + element.ingredients[x].quantity;
+            : " " + recipe.ingredients[x].quantity;
         const uni =
-          element.ingredients[x].unit === undefined
+          recipe.ingredients[x].unit === undefined
             ? " "
-            : element.ingredients[x].unit;
+            : recipe.ingredients[x].unit;
         ingredients.push(
           `<li class="ingredients text">${ingre} <span class="quantity">${quant} ${uni}</span></li> `
         );
@@ -34,14 +35,14 @@ export class RecipesManager {
       gridDOMElements.push(`
           <div class="recipe_card">
           <div class="recipe_duration_container">
-              <p class="recipe_duration">${element.time}min</p>
+              <p class="recipe_duration">${recipe.time}min</p>
           </div>
-          <img src=${picture} alt=${element.name} class="recipe_photo">
+          <img src=${picture} alt=${recipe.name} class="recipe_photo">
           <div class="recipe_description">
-              <h3 class="recipe_title">${element.name}</h3>
+              <h3 class="recipe_title">${recipe.name}</h3>
               <div class="recipe_text_container">
                   <p class="recipe_text_title title">RECETTE</p>
-                  <p class="recipe_text text">${element.description}</p>
+                  <p class="recipe_text text">${recipe.description}</p>
               </div>
               <div class="ingredients_container">
                   <p class="ingredients_title title">Ingrédients</p>
@@ -52,7 +53,8 @@ export class RecipesManager {
           </div>
       </div>
       `);
-    });
+    }
+    //});
     return gridDOMElements.join("");
   }
 
@@ -96,7 +98,7 @@ export class RecipesManager {
           .toLowerCase()
           .includes(
             query.toLowerCase() ||
-              `${this.recipes.description + this.recipes.name}`
+              `${this.recipes[i].description + this.recipes[i].name}`
                 .toLowerCase()
                 .replace(/\s/g, "")
                 .includes(query)
@@ -109,7 +111,7 @@ export class RecipesManager {
         for (const ingredient of this.recipes[i].ingredientsList) {
           if (
             ingredient.toLowerCase().includes(query.toLowerCase()) ||
-            `${this.recipes.ingredientsList}`
+            `${this.recipes[i].ingredientsList}`
               .toLowerCase()
               .replace(/\s/g, "")
               .includes(query)
